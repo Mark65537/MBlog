@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Django Server",
+      "type": "shell",
+      "command": "python manage.py runserver",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Migrations",
+      "type": "shell",
+      "command": "python manage.py migrate",
+      "problemMatcher": []
+    },
+    {
+      "label": "Make Migrations",
+      "type": "shell",
+      "command": "python manage.py makemigrations",
+      "problemMatcher": []
+    },
+    {
+      "label": "Check Project",
+      "type": "shell",
+      "command": "python manage.py check",
+      "problemMatcher": []
+    },
+    {
+      "label": "Collect Static Files",
+      "type": "shell",
+      "command": "python manage.py collectstatic --noinput",
+      "problemMatcher": []
+    },
+    {
+      "label": "Create Superuser",
+      "type": "shell",
+      "command": "python manage.py createsuperuser",
+      "problemMatcher": []
+    }
+  ]
+}
