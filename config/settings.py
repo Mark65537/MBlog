@@ -13,10 +13,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4#=fnqc+-bqdyqk@gir*#!cnzsu-giss^q)1x5t=o54few=1jb'
+DEBUG = os.getenv("DEBUG", "0").lower() in {"1", "true", "yes", "on"}
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    if DEBUG:
+        # Dev-only fallback to keep local runs working.
+        SECRET_KEY = "django-insecure-dev-key"
+    else:
+        raise RuntimeError("SECRET_KEY is required when DEBUG is False")
 
 ALLOWED_HOSTS = []
 
@@ -130,3 +135,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 SITE_ID = 1
+
+# чтобы убрать типичные предупреждения Django про авто-поля.
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField" 
