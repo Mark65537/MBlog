@@ -10,6 +10,9 @@ class PostFilter(django_filters.FilterSet):
     created_after = django_filters.DateTimeFilter(field_name='created_at', lookup_expr='gte')
     created_before = django_filters.DateTimeFilter(field_name='created_at', lookup_expr='lte')
 
+    # фильтр по конкретной дате (без учета времени)
+    created_at = django_filters.DateFilter(field_name='created_at', lookup_expr='date')
+
     class Meta:
         model = Post
         fields = ['author']

@@ -46,9 +46,23 @@ class PostViewSet(ModelViewSet):
             openapi.Parameter(
                 'created_at',
                 openapi.IN_QUERY,
-                description="Фильтрация по дате создания",
+                description="Фильтрация по конкретной дате создания (без учета времени). Формат: YYYY-MM-DD",
                 type=openapi.TYPE_STRING,
                 format='date'
+            ),
+            openapi.Parameter(
+                'created_after',
+                openapi.IN_QUERY,
+                description="Фильтрация по дате создания (после указанной даты)",
+                type=openapi.TYPE_STRING,
+                format='date-time'
+            ),
+            openapi.Parameter(
+                'created_before',
+                openapi.IN_QUERY,
+                description="Фильтрация по дате создания (до указанной даты)",
+                type=openapi.TYPE_STRING,
+                format='date-time'
             ),
             openapi.Parameter(
                 'ordering',
