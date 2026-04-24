@@ -3,7 +3,8 @@ from apps.posts.models.post import Post
 from apps.posts.models.like import Like
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
-from .serializers import PostSerializer, LikeSerializer
+from apps.posts.models.comment import Comment
+from .serializers import PostSerializer, LikeSerializer, CommentSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import PostFilter
 from django.db.models import Count
@@ -336,6 +337,159 @@ class LikeViewSet(ModelViewSet):
         operation_summary="Удалить лайк",
         operation_description="Удалить лайк по его ID",
         responses={204: openapi.Response('Лайк удалён')}
+    )
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
+
+
+class CommentViewSet(ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+    permission_classes = [
+        IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly
+    ]
+
+    # Документация
+    # GET
+    @swagger_auto_schema(
+        operation_summary="Список комментариев",
+        operation_description="Получить список комментариев",
+        responses={
+            200: openapi.Response(
+                description="Список комментариев",
+                schema=CommentSerializer(many=True),
+                examples={
+                    "application/json": [
+                        {
+                            "id": 1,
+                            "post": 1,
+                            "author": "user1",
+                            "body": "Отличный пост!",
+                            "created_at": "2024-01-15T10:30:00Z",
+                            "updated_at": "2024-01-15T10:30:00Z"
+                        },
+                        {
+                            "id": 2,
+                            "post": 1,
+                            "author": "user2",
+                            "body": "Спасибо за информацию",
+                            "created_at": "2024-01-15T11:00:00Z",
+                            "updated_at": "2024-01-15T11:00:00Z"
+                        }
+                    ]
+                }
+            )
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    # POST
+    @swagger_auto_schema(
+        operation_summary="Создать комментарий",
+        operation_description="Создать новый комментарий к посту",
+        request_body=CommentSerializer,
+        responses={
+            201: openapi.Response(
+                description="Комментарий создан",
+                schema=CommentSerializer,
+                examples={
+                    "application/json": {
+                        "id": 1,
+                        "post": 1,
+                        "author": "user1",
+                        "body": "Отличный пост!",
+                        "created_at": "2024-01-15T10:30:00Z",
+                        "updated_at": "2024-01-15T10:30:00Z"
+                    }
+                }
+            )
+        }
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    # GET id
+    @swagger_auto_schema(
+        operation_summary="Получить комментарий по ID",
+        operation_description="Получить один комментарий по его ID",
+        responses={
+            200: openapi.Response(
+                description="Комментарий найден",
+                schema=CommentSerializer,
+                examples={
+                    "application/json": {
+                        "id": 1,
+                        "post": 1,
+                        "author": "user1",
+                        "body": "Отличный пост!",
+                        "created_at": "2024-01-15T10:30:00Z",
+                        "updated_at": "2024-01-15T10:30:00Z"
+                    }
+                }
+            )
+        }
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    # PUT
+    @swagger_auto_schema(
+        operation_summary="Обновить комментарий",
+        operation_description="Полное обновление существующего комментария",
+        request_body=CommentSerializer,
+        responses={
+            200: openapi.Response(
+                description="Комментарий обновлён",
+                schema=CommentSerializer,
+                examples={
+                    "application/json": {
+                        "id": 1,
+                        "post": 1,
+                        "author": "user1",
+                        "body": "Обновлённый комментарий",
+                        "created_at": "2024-01-15T10:30:00Z",
+                        "updated_at": "2024-01-16T14:20:00Z"
+                    }
+                }
+            )
+        }
+    )
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    # PATCH
+    @swagger_auto_schema(
+        operation_summary="Частичное обновление комментария",
+        operation_description="Частичное обновление существующего комментария",
+        request_body=CommentSerializer,
+        responses={
+            200: openapi.Response(
+                description="Комментарий обновлён",
+                schema=CommentSerializer,
+                examples={
+                    "application/json": {
+                        "id": 1,
+                        "post": 1,
+                        "author": "user1",
+                        "body": "Обновлённый текст комментария",
+                        "created_at": "2024-01-15T10:30:00Z",
+                        "updated_at": "2024-01-16T14:20:00Z"
+                    }
+                }
+            )
+        }
+    )
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+
+    # DELETE
+    @swagger_auto_schema(
+        operation_summary="Удалить комментарий",
+        operation_description="Удалить комментарий по его ID",
+        responses={204: openapi.Response('Комментарий удалён')}
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
