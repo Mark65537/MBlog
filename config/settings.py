@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
 
+    'django_filters',
+
     'apps.posts',
 ]
 
@@ -100,6 +102,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ]
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/

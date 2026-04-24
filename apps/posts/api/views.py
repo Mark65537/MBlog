@@ -4,6 +4,8 @@ from apps.posts.models.like import Like
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PostSerializer, LikeSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import PostFilter
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
@@ -13,6 +15,9 @@ class PostViewSet(ModelViewSet):
         IsAuthenticatedOrReadOnly,
         IsOwnerOrReadOnly
     ]
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = PostFilter
 
 class LikeViewSet(ModelViewSet):
     queryset = Like.objects.all()
