@@ -40,6 +40,12 @@
       "type": "shell",
       "command": "python manage.py createsuperuser",
       "problemMatcher": []
+    },
+    {
+      "label": "Tests posts",
+      "type": "shell",
+      "command": "python manage.py test apps.posts.tests --verbosity=2",
+      "problemMatcher": []
     }
   ]
 }
