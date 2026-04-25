@@ -23,7 +23,13 @@ if not SECRET_KEY:
     else:
         raise RuntimeError("SECRET_KEY is required when DEBUG is False")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+# для Docker
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
 
 
 # Application definition
