@@ -54,6 +54,13 @@
       "type": "shell",
       "command": "python manage.py loaddata fixtures/db.json",
       "problemMatcher": []
+    },
+    {
+      "label": "Run Docker",
+      "detail": "Запуск Докера.",
+      "type": "shell",
+      "command": "docker compose up --build",
+      "problemMatcher": []
     }
   ]
 }
