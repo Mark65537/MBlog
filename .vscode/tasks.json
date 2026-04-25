@@ -54,6 +54,69 @@
       "type": "shell",
       "command": "python manage.py loaddata fixtures/db.json",
       "problemMatcher": []
+    },
+    {
+      "label": "Run Docker",
+      "detail": "Запуск Докера.",
+      "type": "shell",
+      "command": "docker compose up --build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Stop Docker",
+      "detail": "Остановка Докера.",
+      "type": "shell",
+      "command": "docker compose down",
+      "problemMatcher": []
+    },
+    {
+      "label": "Restart Docker",
+      "detail": "Перезапуск Докера.",
+      "type": "shell",
+      "command": "docker compose restart",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Docker Detached",
+      "detail": "Запуск Докера в фоновом режиме.",
+      "type": "shell",
+      "command": "docker compose up --build -d",
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker Logs",
+      "detail": "Просмотр логов Докера.",
+      "type": "shell",
+      "command": "docker compose logs -f",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Tests",
+      "detail": "Запуск тестов Django.",
+      "type": "shell",
+      "command": "python manage.py test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Flush Database",
+      "detail": "Очистка базы данных от всех данных.",
+      "type": "shell",
+      "command": "python manage.py flush --noinput",
+      "problemMatcher": []
+    },
+    {
+      "label": "Clear Static Cache",
+      "detail": "Удаление собранных статических файлов перед collectstatic.",
+      "type": "shell",
+      "command": "Remove-Item -Recurse -Force staticfiles/* -ErrorAction SilentlyContinue",
+      "problemMatcher": []
+    },
+    {
+      "label": "Shell Plus",
+      "detail": "Интерактивная консоль Django с импортом всех моделей.",
+      "type": "shell",
+      "command": "python manage.py shell_plus",
+      "problemMatcher": []
     }
   ]
 }
