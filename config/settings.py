@@ -140,6 +140,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = BASE_DIR / 'static'
+
 SITE_ID = 1
 
 # чтобы убрать типичные предупреждения Django про авто-поля.
