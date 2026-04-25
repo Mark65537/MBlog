@@ -40,6 +40,20 @@
       "type": "shell",
       "command": "python manage.py createsuperuser",
       "problemMatcher": []
+    },
+    {
+      "label": "Dump DB data",
+      "detail": "Делает дамп БД в fixtures/db.json. ВНИМАНИЕ backup не делается.",
+      "type": "shell",
+      "command": "python -X utf8 manage.py dumpdata auth.user posts.post posts.like -o fixtures/db.json",
+      "problemMatcher": []
+    },
+    {
+      "label": "Load DB data",
+      "detail": "Загружает фикстуру fixtures/db.json в базу данных.",
+      "type": "shell",
+      "command": "python manage.py loaddata fixtures/db.json",
+      "problemMatcher": []
     }
   ]
 }
