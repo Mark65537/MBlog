@@ -4,6 +4,9 @@
 ![Django](https://img.shields.io/badge/Django-6.0.4-092E20?logo=django&logoColor=white)
 ![Django REST Framework](https://img.shields.io/badge/Django%20REST%20Framework-3.17.1-A31F34?logo=django&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-336791?logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker--2496ED?logo=docker&logoColor=white)
+![Docker Compose](https://img.shields.io/badge/Docker%20Compose-v2-2496ED?logo=docker&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-latest-009639?logo=nginx&logoColor=white)
 
 REST API для блог-платформы на **Django + Django REST Framework**: посты, лайки, Swagger/Redoc, OAuth-логин через Google.
 
@@ -17,6 +20,13 @@ REST API для блог-платформы на **Django + Django REST Framewor
 - **Django admin**: админка
 
 ## Как Запустить
+
+Ниже два варианта запуска:
+
+- **Запуск вручную (локально)**: Python + PostgreSQL на твоей машине.
+- **Запуск через Docker**: всё поднимается через `docker-compose` (PostgreSQL + Django/Gunicorn + Nginx).
+
+### Способ 1. Запуск вручную (локально)
 
 Для запуска нужна база данных PostgreSQL и переменная окружения `DATABASE_URL`.
 
@@ -57,6 +67,28 @@ python manage.py runserver
 или используй task `Run Django Server`
 
 8. Перейти на один из эндпоинтов: [Основные-endpoints](#Основные-endpoints)
+
+### Способ 2. Запуск через Docker
+
+Требуется установленный **Docker Desktop** (вместе с Docker Compose).
+
+1. Создай файл `.env` в корне проекта (если ещё нет). Для запуска через `docker-compose` важно, чтобы хост БД был `db` (это имя сервиса в compose):
+
+2. Собери и подними контейнеры:
+
+```bash
+docker compose up --build
+```
+
+или используй task `Run Docker`
+
+3. Создать суперпользователя (Обычно нужно один раз):
+
+```bash
+docker compose exec web python manage.py createsuperuser
+```
+
+4. Перейти на один из эндпоинтов: [Основные-endpoints](#Основные-endpoints)
 
 ## Переменные окружения
 
